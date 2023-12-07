@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "491965886101",
+    "project_id": "satunol-codetest-2",
+    "storage_bucket": "satunol-codetest-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491965886101:android:2723cbb088b8fa8245f59c",
+        "android_client_info": {
+          "package_name": "com.satunol.satunolcodetest2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491965886101-5dl9v8nmjqnu6fqgngjke13to32q37vk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.satunol.satunolcodetest2",
+            "certificate_hash": "6770d1e7fad3995f67c86aab29e0207cd91028be"
+          }
+        },
+        {
+          "client_id": "491965886101-asu7k1armi6u76g10q0tlk3ds287e7ji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMjZM5PHJtACsSU3S1WhRme2pIev2sOKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491965886101-asu7k1armi6u76g10q0tlk3ds287e7ji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

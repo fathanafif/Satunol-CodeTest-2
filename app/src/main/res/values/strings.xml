@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SatuNol CodeTest 2</string>
+    <string name="sign_in_using_google_auth_2_0">Sign in using Google OAuth 2.0</string>
+    <string name="sign_in">Sign In</string>
+</resources>
