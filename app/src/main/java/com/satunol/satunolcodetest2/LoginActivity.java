@@ -3,8 +3,11 @@ package com.satunol.satunolcodetest2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,12 +22,16 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.satunol.satunolcodetest2.Model.Users;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     MaterialButton btnSignIn;
     FirebaseAuth firebaseAuth;
@@ -35,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        Objects.requireNonNull(getSupportActionBar()).hide(); // hide the title bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_main);
 
         btnSignIn = findViewById(R.id.btnSignIn);
@@ -50,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void btnSignInHandler() {
-        Log.d("valerie", "button pressed");
-
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
     }
@@ -85,8 +94,23 @@ public class MainActivity extends AppCompatActivity {
                         users.setEmail(user.getEmail());
                         users.setName(user.getDisplayName());
                         users.setPhotoProfile(Objects.requireNonNull(user.getPhotoUrl()).toString());
-                        firebaseDatabase.getReference().child("Users").child(user.getUid()).setValue(users);
-                        Intent intent = new Intent(MainActivity.this, ScheduleListActivity.class);
+                        DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(Objects.requireNonNull(firebaseAuth.getUid()));
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    Toast.makeText(LoginActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    firebaseDatabase.getReference().child("Users").child(user.getUid()).setValue(users);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        Intent intent = new Intent(LoginActivity.this, EventListActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();

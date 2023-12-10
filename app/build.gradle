@@ -7,6 +7,10 @@ plugins {
 android {
     compileSdk 34
 
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+    }
+
     defaultConfig {
         applicationId "com.satunol.satunolcodetest2"
         minSdk 30
@@ -39,8 +43,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    implementation 'com.firebaseui:firebase-ui-database:8.0.2'
+
     // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -53,6 +59,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.16.0'
 
    // Google Calendar API Dependencies
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'pub.devrel:easypermissions:3.0.0'
+//    implementation 'com.google.api-client:google-api-client-android:1.31.3'
+//    implementation('com.google.apis:google-api-services-calendar:v3-rev214-1.22.0')
 
 }
